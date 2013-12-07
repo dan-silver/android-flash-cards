@@ -44,9 +44,4 @@ public class ImageAdapter extends BaseAdapter {
         back.setText(cards.get(position).getBack());
         return item;
     }
-
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.mars, R.drawable.mercury, R.drawable.earth
-    };
 }
