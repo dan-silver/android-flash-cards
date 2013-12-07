@@ -167,8 +167,12 @@ public class MainActivity extends Activity {
                                     cardManager.addCard(new Card(cardData));
 
                             }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Canceled.
+                            }
                         })
-                .show();
+                        .show();
                 return true;
             case R.id.action_edit_card:
                 cardManager.editCurrentCard();
