@@ -26,4 +26,6 @@
     <string name="action_add">Add Card</string>
     <string name="action_remove">Remove Card</string>
     <string name="action_edit">Edit Card</string>
+    <string name="action_next">Next Card</string>
+    <string name="action_previous">Previous Card</string>
 </resources>

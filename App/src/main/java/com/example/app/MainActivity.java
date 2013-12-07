@@ -161,9 +161,9 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         FragmentManager fragmentManager = getFragmentManager();
-        final ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
         switch (item.getItemId()) {
             case R.id.action_add_card:
+                final ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
                 LayoutInflater factory = LayoutInflater.from(this);
                 final View textEntryView = factory.inflate(R.layout.card_input, null);
                 final EditText front = (EditText) textEntryView.findViewById(R.id.front);
@@ -186,17 +186,24 @@ public class MainActivity extends Activity {
                     }
                 })
                         .show();
-                return true;
+                break;
             case R.id.action_edit_card:
-                cardManager.editCurrentCard();
-                return true;
+                ((ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame)).editCurrentCard();
+                break;
             case R.id.action_remove_card:
                 Log.v("silver", "Removing a new card!");
-                cardManager.removeCard();
-                return true;
+                ((ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame)).removeCard();
+                break;
+            case R.id.action_next_card:
+                ((LearnFragment) fragmentManager.findFragmentById(R.id.content_frame)).nextCard();
+                break;
+            case R.id.action_previous_card:
+                ((LearnFragment) fragmentManager.findFragmentById(R.id.content_frame)).previousCard();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
     public void addCard(Card card) {
@@ -246,9 +253,13 @@ public class MainActivity extends Activity {
         if (mPlanetTitles[position].equals("Manage")) {
             currentMenu = R.menu.manage;
             fragment = new ManageCardsFragment(this);
+        } else if (mPlanetTitles[position].equals("Learn")) {
+            fragment = new LearnFragment(this);
+            currentMenu = R.menu.learn;
         } else {
             currentMenu = R.menu.learn;
             fragment = new BlankFragment();
+
         }
 
         FragmentManager fragmentManager = getFragmentManager();
