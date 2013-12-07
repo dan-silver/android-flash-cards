@@ -27,6 +27,7 @@ public class PlanetFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
 
+        assert rootView != null;
         ListView list = (ListView) rootView.findViewById(R.id.gridview);
         adapter = new ImageAdapter(rootView.getContext(), cards);
         list.setAdapter(adapter);
@@ -36,6 +37,6 @@ public class PlanetFragment extends Fragment {
 
     public void addCard(Card card) {
         this.cards.add(card);
-        ia.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 }
