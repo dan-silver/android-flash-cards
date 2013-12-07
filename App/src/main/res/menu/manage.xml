@@ -19,8 +19,13 @@
           android:icon="@drawable/ic_action_new"
           android:title="@string/action_add"
           android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_edit_card"
+        android:icon="@drawable/ic_action_edit"
+        android:title="@string/action_edit"
+        android:showAsAction="ifRoom" />
     <item android:id="@+id/action_remove_card"
         android:icon="@drawable/ic_action_discard"
         android:title="@string/action_remove"
         android:showAsAction="ifRoom" />
+
 </menu>

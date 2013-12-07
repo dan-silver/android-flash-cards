@@ -27,4 +27,5 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="action_add">Add Card</string>
     <string name="action_remove">Remove Card</string>
+    <string name="action_edit">Edit Card</string>
 </resources>

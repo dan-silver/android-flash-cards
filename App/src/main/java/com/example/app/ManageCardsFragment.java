@@ -4,12 +4,15 @@ package com.example.app;
  * Created by dan on 12/5/13.
  */
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ public class ManageCardsFragment extends Fragment {
     ArrayList<Card> cards = new ArrayList<Card>();
     ImageAdapter adapter;
     ListView list;
-    int selectedItem;
+    int selectedItem; //-1 for no selected cards
     final MainActivity parent;
 
     public ManageCardsFragment(MainActivity parent) {
@@ -68,5 +71,26 @@ public class ManageCardsFragment extends Fragment {
         selectedItem = -1;
         parent.refreshMenu();
 
+    }
+
+    public void editCurrentCard() {
+        final EditText input = new EditText(parent);
+        input.setText(cards.get(selectedItem).getTitle());
+        new AlertDialog.Builder(parent)
+                .setTitle("Edit Study Card")
+                .setView(input)
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String cardTitle = input.getText().toString();
+                        Card card = cards.get(selectedItem);
+                        card.setTitle(cardTitle);
+                        resetUI();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Canceled.
+                        }
+                    })
+                .show();
     }
 }

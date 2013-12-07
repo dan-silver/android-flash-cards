@@ -138,6 +138,7 @@ public class MainActivity extends Activity {
             ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
                 if (cardManager.selectedItem == -1) {
                     menu.getItem(1).setVisible(false);
+                    menu.getItem(2).setVisible(false);
                 }
         }
         return super.onPrepareOptionsMenu(menu);
@@ -168,6 +169,9 @@ public class MainActivity extends Activity {
                             }
                         })
                 .show();
+                return true;
+            case R.id.action_edit_card:
+                cardManager.editCurrentCard();
                 return true;
             case R.id.action_remove_card:
                 Log.v("silver", "Removing a new card!");
