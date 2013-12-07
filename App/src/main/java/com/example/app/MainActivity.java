@@ -38,7 +38,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -124,7 +123,7 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        CommentsDataSource dataSource = new CommentsDataSource(this);
+        CardsDataSource dataSource = new CardsDataSource(this);
         dataSource.open();
         cards.addAll(dataSource.getAllComments());
         dataSource.close();
@@ -197,6 +196,29 @@ public class MainActivity extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+        CardsDataSource dataSource = new CardsDataSource(this);
+        dataSource.open();
+        dataSource.createCard(card.getFront(), card.getBack());
+        dataSource.close();
+    }
+
+    public void removeCard(int cardPosition) {
+        Card card = cards.get(cardPosition);
+        CardsDataSource dataSource = new CardsDataSource(this);
+        dataSource.open();
+        dataSource.deleteCard(card);
+        dataSource.close();
+        long id = card.getId();
+        for (int i = 0;i< cards.size();i++) {
+            Card c = cards.get(i);
+            if (c.getId() == id) {
+                cards.remove(i);
+            }
         }
     }
 

@@ -12,7 +12,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class CommentsDataSource {
+public class CardsDataSource {
 
     // Database fields
     private SQLiteDatabase database;
@@ -20,7 +20,7 @@ public class CommentsDataSource {
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
             MySQLiteHelper.COLUMN_FRONT, MySQLiteHelper.COLUMN_BACK };
 
-    public CommentsDataSource(Context context) {
+    public CardsDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
     }
 
@@ -47,8 +47,8 @@ public class CommentsDataSource {
         return newCard;
     }
 
-    public void deleteCard(Card comment) {
-        long id = comment.getId();
+    public void deleteCard(Card card) {
+        long id = card.getId();
         System.out.println("Comment deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_CARDS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);

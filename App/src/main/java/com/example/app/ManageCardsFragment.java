@@ -54,12 +54,12 @@ public class ManageCardsFragment extends Fragment {
     }
 
     public void addCard(Card card) {
-        parent.cards.add(card);
+        parent.addCard(card);
         resetUI();
     }
 
     public void removeCard() {
-        parent.cards.remove(selectedItem);
+        parent.removeCard(selectedItem);
         resetUI();
     }
     public void resetUI() {
