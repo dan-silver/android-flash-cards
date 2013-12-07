@@ -18,7 +18,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ManageCardsFragment extends Fragment {
-    ArrayList<Card> cards = new ArrayList<Card>();
     ImageAdapter adapter;
     ListView list;
     int selectedItem; //-1 for no selected cards
@@ -26,8 +25,8 @@ public class ManageCardsFragment extends Fragment {
 
     public ManageCardsFragment(MainActivity parent) {
         selectedItem = -1;
-        cards.add(new Card("test 1"));
-        cards.add(new Card("test 2"));
+        parent.cards.add(new Card("test 1"));
+        parent.cards.add(new Card("test 2"));
         this.parent = parent;
     }
 
@@ -38,7 +37,7 @@ public class ManageCardsFragment extends Fragment {
 
         assert rootView != null;
         list = (ListView) rootView.findViewById(R.id.gridview);
-        adapter = new ImageAdapter(rootView.getContext(), cards);
+        adapter = new ImageAdapter(rootView.getContext(), parent.cards);
         list.setAdapter(adapter);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,12 +57,12 @@ public class ManageCardsFragment extends Fragment {
     }
 
     public void addCard(Card card) {
-        cards.add(card);
+        parent.cards.add(card);
         resetUI();
     }
 
     public void removeCard() {
-        cards.remove(selectedItem);
+        parent.cards.remove(selectedItem);
         resetUI();
     }
     public void resetUI() {
@@ -75,14 +74,14 @@ public class ManageCardsFragment extends Fragment {
 
     public void editCurrentCard() {
         final EditText input = new EditText(parent);
-        input.setText(cards.get(selectedItem).getTitle());
+        input.setText(parent.cards.get(selectedItem).getTitle());
         new AlertDialog.Builder(parent)
                 .setTitle("Edit Study Card")
                 .setView(input)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String cardTitle = input.getText().toString();
-                        Card card = cards.get(selectedItem);
+                        Card card = parent.cards.get(selectedItem);
                         card.setTitle(cardTitle);
                         resetUI();
                     }

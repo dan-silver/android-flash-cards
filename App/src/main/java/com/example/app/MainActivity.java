@@ -36,6 +36,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 /**
  * This example illustrates a common usage of the DrawerLayout widget
  * in the Android support library.
@@ -72,6 +74,8 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private String[] mPlanetTitles;
     private int currentMenu;
+
+    ArrayList<Card> cards = new ArrayList<Card>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,10 +172,10 @@ public class MainActivity extends Activity {
 
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                // Canceled.
-                            }
-                        })
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                })
                         .show();
                 return true;
             case R.id.action_edit_card:
