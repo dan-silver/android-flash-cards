@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
 
         TextView front = (TextView) item.findViewById(R.id.card_front);
         TextView back = (TextView) item.findViewById(R.id.card_back);
-        front.setText(cards.get(position).getTitle());
+        front.setText(cards.get(position).getFront());
         back.setText(cards.get(position).getBack());
         return item;
     }

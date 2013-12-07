@@ -38,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -123,8 +124,10 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        cards.add(new Card("Honorificabilitudinitatibus", "The longest word in the English language featuring alternating consonants and vowels."));
-        cards.add(new Card("Lorem ipsum", "Placeholder text used to demonstrate the graphic elements of a document or visual presentation."));
+        CommentsDataSource dataSource = new CommentsDataSource(this);
+        dataSource.open();
+        cards.addAll(dataSource.getAllComments());
+        dataSource.close();
     }
 
     @Override

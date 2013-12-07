@@ -5,11 +5,24 @@ package com.example.app;
  */
 public class Card {
     private String back;
-    private String title;
+    private String front;
 
-    public Card(String title, String back) {
-        this.title = title;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private long id;
+
+    public Card(String front, String back) {
+        this.front = front;
         this.back = back;
+    }
+    public Card() {
+
     }
 
     public String getBack() {
@@ -20,12 +33,11 @@ public class Card {
         this.back = back;
     }
 
-
-    public String getTitle() {
-        return title;
+    public String getFront() {
+        return front;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFront(String front) {
+        this.front = front;
     }
 }

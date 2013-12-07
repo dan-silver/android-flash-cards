@@ -73,7 +73,7 @@ public class ManageCardsFragment extends Fragment {
         final View textEntryView = factory.inflate(R.layout.card_input, null);
         final EditText front = (EditText) textEntryView.findViewById(R.id.front);
         final EditText back = (EditText) textEntryView.findViewById(R.id.back);
-        front.setText(parent.cards.get(selectedItem).getTitle());
+        front.setText(parent.cards.get(selectedItem).getFront());
         back.setText(parent.cards.get(selectedItem).getBack());
         new AlertDialog.Builder(parent)
                 .setTitle("Edit Study Card")
@@ -83,7 +83,7 @@ public class ManageCardsFragment extends Fragment {
                         String cardTitle = front.getText().toString();
                         String cardBack = back.getText().toString();
                         Card card = parent.cards.get(selectedItem);
-                        card.setTitle(cardTitle);
+                        card.setFront(cardTitle);
                         card.setBack(cardBack);
                         resetUI();
                     }
