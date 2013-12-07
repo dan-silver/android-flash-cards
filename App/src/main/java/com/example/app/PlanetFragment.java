@@ -6,9 +6,11 @@ package com.example.app;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,6 +33,13 @@ public class PlanetFragment extends Fragment {
         ListView list = (ListView) rootView.findViewById(R.id.gridview);
         adapter = new ImageAdapter(rootView.getContext(), cards);
         list.setAdapter(adapter);
+        list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("silver", "clicked" + position);
+            }
+        });
 
         return rootView;
     }
