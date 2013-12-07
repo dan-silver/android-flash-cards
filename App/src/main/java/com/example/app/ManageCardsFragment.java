@@ -4,11 +4,8 @@ package com.example.app;
  * Created by dan on 12/5/13.
  */
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +14,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class PlanetFragment extends Fragment {
+public class ManageCardsFragment extends Fragment {
     ArrayList<Card> cards = new ArrayList<Card>();
     ImageAdapter adapter;
     ListView list;
     int selectedItem;
     final MainActivity parent;
 
-    public PlanetFragment(MainActivity parent) {
+    public ManageCardsFragment(MainActivity parent) {
         selectedItem = -1;
         cards.add(new Card("test 1"));
         cards.add(new Card("test 2"));

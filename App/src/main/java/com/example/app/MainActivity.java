@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -136,7 +135,7 @@ public class MainActivity extends Activity {
         for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
         if (currentMenu == R.menu.manage) {
             FragmentManager fragmentManager = getFragmentManager();
-            PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
+            ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
                 if (cardManager.selectedItem == -1) {
                     menu.getItem(1).setVisible(false);
                 }
@@ -153,7 +152,7 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         FragmentManager fragmentManager = getFragmentManager();
-        final PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
+        final ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
         switch (item.getItemId()) {
             case R.id.action_add_card:
                 final EditText input = new EditText(this);
@@ -191,7 +190,7 @@ public class MainActivity extends Activity {
         Fragment fragment = null;
         if (mPlanetTitles[position].equals("Manage")) {
             currentMenu = R.menu.manage;
-            fragment = new PlanetFragment(this);
+            fragment = new ManageCardsFragment(this);
         } else {
             currentMenu = R.menu.learn;
             fragment = new BlankFragment();
@@ -207,7 +206,6 @@ public class MainActivity extends Activity {
     }
 
     public void refreshMenu() {
-        Log.v("silver", "refreshing menu!");
         invalidateOptionsMenu();
     }
 
