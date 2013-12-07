@@ -60,13 +60,17 @@ public class PlanetFragment extends Fragment {
 
     public void addCard(Card card) {
         cards.add(card);
-        adapter.notifyDataSetChanged();
-        selectedItem = -1;
+        resetUI();
     }
 
     public void removeCard() {
         cards.remove(selectedItem);
+        resetUI();
+    }
+    public void resetUI() {
         adapter.notifyDataSetChanged();
         selectedItem = -1;
+        parent.refreshMenu();
+
     }
 }
