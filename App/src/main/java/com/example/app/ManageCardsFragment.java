@@ -69,16 +69,22 @@ public class ManageCardsFragment extends Fragment {
     }
 
     public void editCurrentCard() {
-        final EditText input = new EditText(parent);
-        input.setText(parent.cards.get(selectedItem).getTitle());
+        LayoutInflater factory = LayoutInflater.from(parent);
+        final View textEntryView = factory.inflate(R.layout.card_input, null);
+        final EditText front = (EditText) textEntryView.findViewById(R.id.front);
+        final EditText back = (EditText) textEntryView.findViewById(R.id.back);
+        front.setText(parent.cards.get(selectedItem).getTitle());
+        back.setText(parent.cards.get(selectedItem).getBack());
         new AlertDialog.Builder(parent)
                 .setTitle("Edit Study Card")
-                .setView(input)
+                .setView(textEntryView)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String cardTitle = input.getText().toString();
+                        String cardTitle = front.getText().toString();
+                        String cardBack = back.getText().toString();
                         Card card = parent.cards.get(selectedItem);
                         card.setTitle(cardTitle);
+                        card.setBack(cardBack);
                         resetUI();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
