@@ -27,6 +27,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -122,8 +123,8 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        cards.add(new Card("First Term"));
-        cards.add(new Card("Second Term"));
+        cards.add(new Card("Honorificabilitudinitatibus", "The longest word in the English language featuring alternating consonants and vowels."));
+        cards.add(new Card("Lorem ipsum", "Placeholder text used to demonstrate the graphic elements of a document or visual presentation."));
     }
 
     @Override
@@ -161,16 +162,21 @@ public class MainActivity extends Activity {
         final ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
         switch (item.getItemId()) {
             case R.id.action_add_card:
-                final EditText input = new EditText(this);
+                LayoutInflater factory = LayoutInflater.from(this);
+                final View textEntryView = factory.inflate(R.layout.card_input, null);
+                final EditText front = (EditText) textEntryView.findViewById(R.id.front);
+                final EditText back = (EditText) textEntryView.findViewById(R.id.back);
+
                 new AlertDialog.Builder(this)
                         .setTitle("Create Study Card")
-                        .setView(input)
+                        .setView(textEntryView)
                         .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                String cardData = input.getText().toString();
-                                if (!cardData.equals(""))
-                                    cardManager.addCard(new Card(cardData));
-
+                                String frontStr = front.getText().toString();
+                                String backStr = back.getText().toString();
+                                if (!frontStr.equals("")) {
+                                    cardManager.addCard(new Card(frontStr, backStr));
+                                }
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

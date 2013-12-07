@@ -38,8 +38,10 @@ public class ImageAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item = inflater.inflate(R.layout.card_item, parent, false);
 
-        TextView title = (TextView) item.findViewById(R.id.textView);
-        title.setText(cards.get(position).getTitle());
+        TextView front = (TextView) item.findViewById(R.id.card_front);
+        TextView back = (TextView) item.findViewById(R.id.card_back);
+        front.setText(cards.get(position).getTitle());
+        back.setText(cards.get(position).getBack());
         return item;
     }
 
