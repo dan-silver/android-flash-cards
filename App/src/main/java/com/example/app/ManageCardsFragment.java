@@ -24,8 +24,6 @@ public class ManageCardsFragment extends Fragment {
 
     public ManageCardsFragment(MainActivity parent) {
         selectedItem = -1;
-        parent.cards.add(new Card("test 1"));
-        parent.cards.add(new Card("test 2"));
         this.parent = parent;
     }
 
@@ -68,7 +66,6 @@ public class ManageCardsFragment extends Fragment {
         adapter.notifyDataSetChanged();
         selectedItem = -1;
         parent.refreshMenu();
-
     }
 
     public void editCurrentCard() {

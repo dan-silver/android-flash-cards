@@ -122,6 +122,8 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        cards.add(new Card("First Term"));
+        cards.add(new Card("Second Term"));
     }
 
     @Override
