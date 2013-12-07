@@ -138,8 +138,7 @@ public class MainActivity extends Activity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
         if (currentMenu == R.menu.manage) {
-            FragmentManager fragmentManager = getFragmentManager();
-            ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
+            ManageCardsFragment cardManager = (ManageCardsFragment) getFragmentManager().findFragmentById(R.id.content_frame);
                 if (cardManager.selectedItem == -1) {
                     menu.getItem(1).setVisible(false);
                     menu.getItem(2).setVisible(false);

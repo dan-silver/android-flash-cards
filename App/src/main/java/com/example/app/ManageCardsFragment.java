@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
 public class ManageCardsFragment extends Fragment {
     ImageAdapter adapter;
