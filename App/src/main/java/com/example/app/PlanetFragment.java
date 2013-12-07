@@ -14,11 +14,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class PlanetFragment extends Fragment {
-    public ArrayList<Card> cards = new ArrayList<Card>();
-    public static final String ARG_PLANET_NUMBER = "planet_number";
+    ArrayList<Card> cards = new ArrayList<Card>();
+    ImageAdapter adapter;
 
     public PlanetFragment() {
-        // Empty constructor required for fragment subclasses
         cards.add(new Card("test 1"));
         cards.add(new Card("test 2"));
     }
@@ -29,8 +28,14 @@ public class PlanetFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
 
         ListView list = (ListView) rootView.findViewById(R.id.gridview);
-        list.setAdapter(new ImageAdapter(rootView.getContext(), cards));
+        adapter = new ImageAdapter(rootView.getContext(), cards);
+        list.setAdapter(adapter);
 
         return rootView;
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+        ia.notifyDataSetChanged();
     }
 }
