@@ -130,6 +130,13 @@ public class MainActivity extends Activity {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
+        if (currentMenu == R.menu.manage) {
+            FragmentManager fragmentManager = getFragmentManager();
+            PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
+                if (cardManager.selectedItem == -1) {
+                    menu.getItem(1).setVisible(false);
+                }
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -170,7 +177,7 @@ public class MainActivity extends Activity {
         Fragment fragment = null;
         if (mPlanetTitles[position].equals("Manage")) {
             currentMenu = R.menu.manage;
-            fragment = new PlanetFragment();
+            fragment = new PlanetFragment(this);
         } else {
             currentMenu = R.menu.learn;
             fragment = new BlankFragment();
@@ -185,6 +192,10 @@ public class MainActivity extends Activity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
+    public void refreshMenu() {
+        Log.v("silver", "refreshing menu!");
+        invalidateOptionsMenu();
+    }
 
     @Override
     public void setTitle(CharSequence title) {

@@ -4,7 +4,9 @@ package com.example.app;
  * Created by dan on 12/5/13.
  */
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +22,13 @@ public class PlanetFragment extends Fragment {
     ImageAdapter adapter;
     ListView list;
     int selectedItem;
+    final MainActivity parent;
 
-    public PlanetFragment() {
+    public PlanetFragment(MainActivity parent) {
         selectedItem = -1;
         cards.add(new Card("test 1"));
         cards.add(new Card("test 2"));
+        this.parent = parent;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class PlanetFragment extends Fragment {
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
                 if (selectedItem == position) {
                     list.clearChoices();
                     list.requestLayout();
@@ -47,6 +51,7 @@ public class PlanetFragment extends Fragment {
                 } else {
                     selectedItem = position;
                 }
+                parent.refreshMenu();
             }
         });
 
@@ -56,10 +61,12 @@ public class PlanetFragment extends Fragment {
     public void addCard(Card card) {
         cards.add(card);
         adapter.notifyDataSetChanged();
+        selectedItem = -1;
     }
 
     public void removeCard() {
         cards.remove(selectedItem);
         adapter.notifyDataSetChanged();
+        selectedItem = -1;
     }
 }
