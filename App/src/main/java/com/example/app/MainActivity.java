@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
-                ) {
+        ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
@@ -129,29 +129,32 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        for(int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
+        for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         // The action bar home/up action should open or close the drawer.
-         // ActionBarDrawerToggle will take care of this.
+        // The action bar home/up action should open or close the drawer.
+        // ActionBarDrawerToggle will take care of this.
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         // Handle action buttons
-        switch(item.getItemId()) {
-        case R.id.action_add_card:
-            // create intent to perform web search for this planet
-            FragmentManager fragmentManager = getFragmentManager();
-            PlanetFragment planet = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
-            Log.v("silver", "Adding a new card from the menu!");
-            planet.addCard(new Card("Adding a new card from the menu!"));
-
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+        FragmentManager fragmentManager = getFragmentManager();
+        PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
+        switch (item.getItemId()) {
+            case R.id.action_add_card:
+                // create intent to perform web search for this planet
+                Log.v("silver", "Adding a new card from the menu!");
+                cardManager.addCard(new Card("Adding a new card from the menu!"));
+                return true;
+            case R.id.action_remove_card:
+                Log.v("silver", "Removing a new card!");
+                cardManager.removeCard();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -181,9 +184,6 @@ public class MainActivity extends Activity {
         setTitle(mPlanetTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
-
-
-
 
 
     @Override

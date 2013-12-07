@@ -18,8 +18,11 @@ import java.util.ArrayList;
 public class PlanetFragment extends Fragment {
     ArrayList<Card> cards = new ArrayList<Card>();
     ImageAdapter adapter;
+    ListView list;
+    int selectedItem;
 
     public PlanetFragment() {
+        selectedItem = -1;
         cards.add(new Card("test 1"));
         cards.add(new Card("test 2"));
     }
@@ -30,14 +33,20 @@ public class PlanetFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
 
         assert rootView != null;
-        ListView list = (ListView) rootView.findViewById(R.id.gridview);
+        list = (ListView) rootView.findViewById(R.id.gridview);
         adapter = new ImageAdapter(rootView.getContext(), cards);
         list.setAdapter(adapter);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("silver", "clicked" + position);
+                if (selectedItem == position) {
+                    list.clearChoices();
+                    list.requestLayout();
+                    selectedItem = -1;
+                } else {
+                    selectedItem = position;
+                }
             }
         });
 
@@ -45,7 +54,12 @@ public class PlanetFragment extends Fragment {
     }
 
     public void addCard(Card card) {
-        this.cards.add(card);
+        cards.add(card);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void removeCard() {
+        cards.remove(selectedItem);
         adapter.notifyDataSetChanged();
     }
 }
