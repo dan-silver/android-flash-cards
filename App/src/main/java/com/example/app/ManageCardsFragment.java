@@ -82,9 +82,7 @@ public class ManageCardsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String cardTitle = front.getText().toString();
                         String cardBack = back.getText().toString();
-                        Card card = parent.cards.get(selectedItem);
-                        card.setFront(cardTitle);
-                        card.setBack(cardBack);
+                        parent.updateCard(selectedItem, cardTitle, cardBack);
                         resetUI();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -93,5 +91,6 @@ public class ManageCardsFragment extends Fragment {
                         }
                     })
                 .show();
+
     }
 }

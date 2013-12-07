@@ -54,6 +54,15 @@ public class CardsDataSource {
                 + " = " + id, null);
     }
 
+    public void editCard(Card card) {
+        long id = card.getId();
+        ContentValues args = new ContentValues();
+        args.put(MySQLiteHelper.COLUMN_FRONT, card.getFront());
+        args.put(MySQLiteHelper.COLUMN_BACK, card.getBack());
+        database.update(MySQLiteHelper.TABLE_CARDS, args, MySQLiteHelper.COLUMN_ID
+                + " = " + id, null);
+    }
+
     public List<Card> getAllComments() {
         List<Card> comments = new ArrayList<Card>();
 

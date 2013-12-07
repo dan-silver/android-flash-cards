@@ -222,6 +222,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void updateCard(int selectedItem, String cardFront, String cardBack) {
+        Card card = cards.get(selectedItem);
+        card.setFront(cardFront);
+        card.setBack(cardBack);
+
+        CardsDataSource dataSource = new CardsDataSource(this);
+        dataSource.open();
+        dataSource.editCard(card);
+        dataSource.close();
+    }
+
     /* The click listner for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
