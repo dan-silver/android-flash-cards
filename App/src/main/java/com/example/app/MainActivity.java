@@ -17,13 +17,16 @@
 package com.example.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -149,12 +153,22 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         FragmentManager fragmentManager = getFragmentManager();
-        PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
+        final PlanetFragment cardManager = (PlanetFragment) fragmentManager.findFragmentById(R.id.content_frame);
         switch (item.getItemId()) {
             case R.id.action_add_card:
-                // create intent to perform web search for this planet
-                Log.v("silver", "Adding a new card from the menu!");
-                cardManager.addCard(new Card("Adding a new card from the menu!"));
+                final EditText input = new EditText(this);
+                new AlertDialog.Builder(this)
+                        .setTitle("Create Study Card")
+                        .setView(input)
+                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String cardData = input.getText().toString();
+                                if (!cardData.equals(""))
+                                    cardManager.addCard(new Card(cardData));
+
+                            }
+                        })
+                .show();
                 return true;
             case R.id.action_remove_card:
                 Log.v("silver", "Removing a new card!");

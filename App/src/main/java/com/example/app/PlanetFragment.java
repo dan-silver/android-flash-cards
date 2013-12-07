@@ -54,7 +54,6 @@ public class PlanetFragment extends Fragment {
                 parent.refreshMenu();
             }
         });
-
         return rootView;
     }
 
