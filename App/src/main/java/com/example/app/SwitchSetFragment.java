@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class SwitchSetFragment extends ListFragment{
 
     MainActivity parent;
-    ArrayAdapter<String> adapter;
+    SetListAdapter adapter;
 
     public SwitchSetFragment() {
         //required constructor
@@ -37,8 +37,7 @@ public class SwitchSetFragment extends ListFragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_activated_1, getSetNames());
+        adapter = new SetListAdapter(parent, parent.getCardSets());
         setListAdapter(adapter);
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         getListView().setSelector(R.drawable.selection_effect);
@@ -48,16 +47,6 @@ public class SwitchSetFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         parent.setCurrentSet(position);
-    }
-
-    private String[] getSetNames() {
-        Log.v("silver", ("fetching names"));
-        ArrayList<Set> sets = parent.getCardSets();
-        String[] names = new String[sets.size()];
-        for (int i=0;i<sets.size();i++) {
-            names[i] = sets.get(i).getName();
-        }
-        return names;
     }
 
     public void addSet() {
