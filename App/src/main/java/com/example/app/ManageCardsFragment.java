@@ -15,17 +15,21 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 
 public class ManageCardsFragment extends Fragment {
     ImageAdapter adapter;
     ListView list;
     int selectedItem; //-1 for no selected cards
-    final MainActivity parent;
+    static MainActivity parent;
 
     public ManageCardsFragment(MainActivity parent) {
         selectedItem = -1;
         this.parent = parent;
     }
+
+    public ManageCardsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

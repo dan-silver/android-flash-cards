@@ -14,17 +14,25 @@ import java.util.ArrayList;
  * Created by dan on 12/7/13.
  */
 public class LearnFragment extends Fragment {
-    ArrayList<Card> cards;
+    static ArrayList<Card> cards;
     int position = 0;
     View view = null;
-
+    MainActivity parent;
+    public LearnFragment() {
+        //required constructor
+    }
     public LearnFragment(MainActivity parent) {
         cards = parent.cards;
+        this.parent = parent;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+           // cards = parent.cards;
+        }
+
         view = inflater.inflate(R.layout.learn, container, false);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override

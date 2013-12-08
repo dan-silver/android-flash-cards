@@ -22,6 +22,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -39,33 +40,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-/**
- * This example illustrates a common usage of the DrawerLayout widget
- * in the Android support library.
- * <p/>
- * <p>When a navigation (left) drawer is present, the host activity should detect presses of
- * the action bar's Up affordance as a signal to open and close the navigation drawer. The
- * ActionBarDrawerToggle facilitates this behavior.
- * Items within the drawer should fall into one of two categories:</p>
- * <p/>
- * <ul>
- * <li><strong>View switches</strong>. A view switch follows the same basic policies as
- * list or tab navigation in that a view switch does not create navigation history.
- * This pattern should only be used at the root activity of a task, leaving some form
- * of Up navigation active for activities further down the navigation hierarchy.</li>
- * <li><strong>Selective Up</strong>. The drawer allows the user to choose an alternate
- * parent for Up navigation. This allows a user to jump across an app's navigation
- * hierarchy at will. The application should treat this as it treats Up navigation from
- * a different task, replacing the current task stack using TaskStackBuilder or similar.
- * This is the only form of navigation drawer that should be used outside of the root
- * activity of a task.</li>
- * </ul>
- * <p/>
- * <p>Right side drawers should be used for actions, not navigation. This follows the pattern
- * established by the Action Bar that navigation should be to the left and actions to the right.
- * An action should be an operation performed on the current contents of the window,
- * for example enabling or disabling a data overlay on top of the current content.</p>
- */
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -74,7 +48,6 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
-    private int currentMenu;
 
     ArrayList<Card> cards = new ArrayList<Card>();
 
@@ -82,7 +55,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        currentMenu = R.menu.manage;
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.drawer_menu_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,7 +104,12 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(currentMenu, menu);
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
+        if (fragment instanceof ManageCardsFragment) {
+            inflater.inflate(R.menu.manage, menu);
+        } else if (fragment instanceof LearnFragment) {
+            inflater.inflate(R.menu.learn, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -142,12 +119,10 @@ public class MainActivity extends Activity {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(!drawerOpen);
-        if (currentMenu == R.menu.manage) {
-            ManageCardsFragment cardManager = (ManageCardsFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-                if (cardManager.selectedItem == -1) {
-                    menu.getItem(1).setVisible(false);
-                    menu.getItem(2).setVisible(false);
-                }
+        Fragment cardManager = getFragmentManager().findFragmentById(R.id.content_frame);
+        if (cardManager instanceof ManageCardsFragment && ((ManageCardsFragment) cardManager).selectedItem == -1) {
+            menu.getItem(1).setVisible(false);
+            menu.getItem(2).setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -251,15 +226,11 @@ public class MainActivity extends Activity {
     private void selectItem(int position) {
         Fragment fragment = null;
         if (mPlanetTitles[position].equals("Manage")) {
-            currentMenu = R.menu.manage;
             fragment = new ManageCardsFragment(this);
         } else if (mPlanetTitles[position].equals("Learn")) {
             fragment = new LearnFragment(this);
-            currentMenu = R.menu.learn;
         } else {
-            currentMenu = R.menu.learn;
             fragment = new BlankFragment();
-
         }
 
         FragmentManager fragmentManager = getFragmentManager();
