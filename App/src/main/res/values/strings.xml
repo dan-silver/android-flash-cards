@@ -20,6 +20,7 @@
         <item>Manage</item>
         <item>Learn</item>
         <item>Test</item>
+        <item>Switch Set</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

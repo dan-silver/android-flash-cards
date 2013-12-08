@@ -22,7 +22,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -47,7 +46,9 @@ public class MainActivity extends Activity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mPlanetTitles;
+    private String[] drawerMenuItems;
+
+    private Set cardSet = new Set();
 
     ArrayList<Card> cards = new ArrayList<Card>();
 
@@ -56,7 +57,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.drawer_menu_items);
+        drawerMenuItems = getResources().getStringArray(R.array.drawer_menu_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -64,7 +65,7 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+                R.layout.drawer_list_item, drawerMenuItems));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -225,10 +226,12 @@ public class MainActivity extends Activity {
 
     private void selectItem(int position) {
         Fragment fragment = null;
-        if (mPlanetTitles[position].equals("Manage")) {
+        if (drawerMenuItems[position].equals("Manage")) {
             fragment = new ManageCardsFragment(this);
-        } else if (mPlanetTitles[position].equals("Learn")) {
+        } else if (drawerMenuItems[position].equals("Learn")) {
             fragment = new LearnFragment(this);
+        } else if (drawerMenuItems[position].equals("Switch Set")) {
+            fragment = new SwitchSetFragment(this);
         } else {
             fragment = new BlankFragment();
         }
@@ -238,7 +241,7 @@ public class MainActivity extends Activity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
+        setTitle(drawerMenuItems[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
