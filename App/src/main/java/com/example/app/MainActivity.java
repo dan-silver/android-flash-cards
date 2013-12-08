@@ -47,8 +47,10 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] drawerMenuItems;
+    private int currentSet;
 
     ArrayList<Card> cards = new ArrayList<Card>();
+    ArrayList<Set> cardSets = new ArrayList<Set>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,13 @@ public class MainActivity extends Activity {
         dataSource.open();
         cards.addAll(dataSource.getAllComments());
         dataSource.close();
+
+        cardSets.add(new Set("Spanish Chapter 1"));
+        cardSets.add(new Set("Spanish Chapter 2"));
+        cardSets.add(new Set("Spanish Chapter 3"));
+        cardSets.add(new Set("Spanish Chapter 4"));
+        cardSets.add(new Set("Spanish Chapter 5"));
+        currentSet = 4;
     }
 
     @Override
@@ -212,6 +221,13 @@ public class MainActivity extends Activity {
         dataSource.open();
         dataSource.editCard(card);
         dataSource.close();
+    }
+
+    public void setCurrentSet(int set) {
+        currentSet = set;
+    }
+    public int getCurrentSet() {
+        return currentSet;
     }
 
     /* The click listner for ListView in the navigation drawer */
