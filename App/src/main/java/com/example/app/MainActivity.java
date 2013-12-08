@@ -117,6 +117,8 @@ public class MainActivity extends Activity {
             inflater.inflate(R.menu.manage, menu);
         } else if (fragment instanceof LearnFragment) {
             inflater.inflate(R.menu.learn, menu);
+        } else if (fragment instanceof SwitchSetFragment) {
+            inflater.inflate(R.menu.switch_sets, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -183,6 +185,8 @@ public class MainActivity extends Activity {
             case R.id.action_previous_card:
                 ((LearnFragment) fragmentManager.findFragmentById(R.id.content_frame)).previousCard();
                 break;
+            case R.id.action_add_set:
+                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).addSet();
             default:
                 return super.onOptionsItemSelected(item);
         }

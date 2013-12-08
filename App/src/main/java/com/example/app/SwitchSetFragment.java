@@ -1,10 +1,14 @@
 package com.example.app;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 public class SwitchSetFragment extends ListFragment {
 
     MainActivity parent;
+    SetListAdapter adapter;
 
     public SwitchSetFragment() {
         //required constructor
@@ -32,12 +37,10 @@ public class SwitchSetFragment extends ListFragment {
         for (int i=0;i<getSets().size();i++) {
             names[i] = getSets().get(i).getName();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_activated_1, names);
+        adapter = new SetListAdapter(this.parent, getSets());
         setListAdapter(adapter);
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         getListView().setSelector(R.drawable.selection_effect);
-
         getListView().setItemChecked(parent.getCurrentSet(), true);
     }
 
@@ -48,5 +51,25 @@ public class SwitchSetFragment extends ListFragment {
 
     private ArrayList<Set> getSets() {
         return parent.cardSets;
+    }
+
+    public void addSet() {
+        final EditText input = new EditText(parent);
+        input.setHint("Set name");
+        new AlertDialog.Builder(parent)
+                .setTitle("Create Set")
+                .setView(input)
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String setTitle = input.getText().toString();
+                        getSets().add(new Set(setTitle));
+                        adapter.notifyDataSetChanged();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        })
+                .show();
     }
 }
