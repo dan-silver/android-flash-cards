@@ -187,6 +187,10 @@ public class MainActivity extends Activity {
                 break;
             case R.id.action_add_set:
                 ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).addSet();
+                break;
+            case R.id.action_remove_set:
+                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).removeSet();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

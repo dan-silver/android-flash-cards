@@ -41,7 +41,7 @@ public class SwitchSetFragment extends ListFragment{
         setListAdapter(adapter);
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         getListView().setSelector(R.drawable.selection_effect);
-        getListView().setItemChecked(parent.getCurrentSet(), true);
+        refreshUI();
     }
 
     @Override
@@ -59,7 +59,8 @@ public class SwitchSetFragment extends ListFragment{
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String setTitle = input.getText().toString();
                         parent.getCardSets().add(new Set(setTitle));
-                        adapter.notifyDataSetChanged();
+                        parent.setCurrentSet(parent.getCardSets().size()-1);
+                        refreshUI();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -67,5 +68,16 @@ public class SwitchSetFragment extends ListFragment{
             }
         })
                 .show();
+    }
+
+    public void refreshUI() {
+        adapter.notifyDataSetChanged();
+        getListView().setItemChecked(parent.getCurrentSet(), true);
+    }
+
+    public void removeSet() {
+        parent.getCardSets().remove(parent.getCurrentSet());
+        parent.setCurrentSet(0);
+        refreshUI();
     }
 }
