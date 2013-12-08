@@ -1,12 +1,18 @@
 package com.example.app;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.ListFragment;
+import android.app.LoaderManager;
 import android.content.DialogInterface;
+import android.content.Loader;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,10 +22,10 @@ import java.util.ArrayList;
 /**
  * Created by dan on 12/7/13.
  */
-public class SwitchSetFragment extends ListFragment {
+public class SwitchSetFragment extends ListFragment{
 
     MainActivity parent;
-    SetListAdapter adapter;
+    ArrayAdapter<String> adapter;
 
     public SwitchSetFragment() {
         //required constructor
@@ -30,14 +36,9 @@ public class SwitchSetFragment extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
-
-        String[] names = new String[getSets().size()];
-        for (int i=0;i<getSets().size();i++) {
-            names[i] = getSets().get(i).getName();
-        }
-        adapter = new SetListAdapter(this.parent, getSets());
+        adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_activated_1, getSetNames());
         setListAdapter(adapter);
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         getListView().setSelector(R.drawable.selection_effect);
@@ -49,8 +50,14 @@ public class SwitchSetFragment extends ListFragment {
         parent.setCurrentSet(position);
     }
 
-    private ArrayList<Set> getSets() {
-        return parent.cardSets;
+    private String[] getSetNames() {
+        Log.v("silver", ("fetching names"));
+        ArrayList<Set> sets = parent.getCardSets();
+        String[] names = new String[sets.size()];
+        for (int i=0;i<sets.size();i++) {
+            names[i] = sets.get(i).getName();
+        }
+        return names;
     }
 
     public void addSet() {
@@ -62,7 +69,7 @@ public class SwitchSetFragment extends ListFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String setTitle = input.getText().toString();
-                        getSets().add(new Set(setTitle));
+                        parent.getCardSets().add(new Set(setTitle));
                         adapter.notifyDataSetChanged();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

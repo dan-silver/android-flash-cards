@@ -234,6 +234,10 @@ public class MainActivity extends Activity {
         return currentSet;
     }
 
+    public ArrayList<Set> getCardSets() {
+        return cardSets;
+    }
+
     /* The click listner for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
