@@ -48,8 +48,6 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private String[] drawerMenuItems;
 
-    private Set cardSet = new Set();
-
     ArrayList<Card> cards = new ArrayList<Card>();
 
     @Override
@@ -225,7 +223,7 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
-        Fragment fragment = null;
+        Fragment fragment;
         if (drawerMenuItems[position].equals("Manage")) {
             fragment = new ManageCardsFragment(this);
         } else if (drawerMenuItems[position].equals("Learn")) {

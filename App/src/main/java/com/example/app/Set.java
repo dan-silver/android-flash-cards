@@ -7,6 +7,10 @@ public class Set {
     int id;
     String name;
 
+    public Set(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
