@@ -57,11 +57,6 @@ public class ManageCardsFragment extends Fragment {
         return rootView;
     }
 
-    public void addCard(Card card) {
-        parent.addCard(card);
-        resetUI();
-    }
-
     public void removeCard() {
         parent.removeCard(selectedItem);
         resetUI();
@@ -96,5 +91,31 @@ public class ManageCardsFragment extends Fragment {
                     })
                 .show();
 
+    }
+
+    public void addCard() {
+        LayoutInflater factory = LayoutInflater.from(parent);
+        final View textEntryView = factory.inflate(R.layout.card_input, null);
+        final EditText front = (EditText) textEntryView.findViewById(R.id.front);
+        final EditText back = (EditText) textEntryView.findViewById(R.id.back);
+
+        new AlertDialog.Builder(parent)
+                .setTitle("Create Study Card")
+                .setView(textEntryView)
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String frontStr = front.getText().toString();
+                        String backStr = back.getText().toString();
+                        if (!frontStr.equals("")) {
+                            parent.addCard(new Card(frontStr, backStr));
+                            resetUI();
+                        }
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        })
+                .show();
     }
 }

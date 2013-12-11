@@ -145,54 +145,32 @@ public class MainActivity extends Activity {
             return true;
         }
         // Handle action buttons
-        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
         switch (item.getItemId()) {
             case R.id.action_add_card:
-                final ManageCardsFragment cardManager = (ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame);
-                LayoutInflater factory = LayoutInflater.from(this);
-                final View textEntryView = factory.inflate(R.layout.card_input, null);
-                final EditText front = (EditText) textEntryView.findViewById(R.id.front);
-                final EditText back = (EditText) textEntryView.findViewById(R.id.back);
-
-                new AlertDialog.Builder(this)
-                        .setTitle("Create Study Card")
-                        .setView(textEntryView)
-                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                String frontStr = front.getText().toString();
-                                String backStr = back.getText().toString();
-                                if (!frontStr.equals("")) {
-                                    cardManager.addCard(new Card(frontStr, backStr));
-                                }
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                })
-                        .show();
+                ((ManageCardsFragment) fragment).addCard();
                 break;
             case R.id.action_edit_card:
-                ((ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame)).editCurrentCard();
+                ((ManageCardsFragment) fragment).editCurrentCard();
                 break;
             case R.id.action_remove_card:
                 Log.v("silver", "Removing a new card!");
-                ((ManageCardsFragment) fragmentManager.findFragmentById(R.id.content_frame)).removeCard();
+                ((ManageCardsFragment) fragment).removeCard();
                 break;
             case R.id.action_next_card:
-                ((LearnFragment) fragmentManager.findFragmentById(R.id.content_frame)).nextCard();
+                ((LearnFragment) fragment).nextCard();
                 break;
             case R.id.action_previous_card:
-                ((LearnFragment) fragmentManager.findFragmentById(R.id.content_frame)).previousCard();
+                ((LearnFragment) fragment).previousCard();
                 break;
             case R.id.action_add_set:
-                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).addSet();
+                ((SwitchSetFragment) fragment).addSet();
                 break;
             case R.id.action_remove_set:
-                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).removeSet();
+                ((SwitchSetFragment) fragment).removeSet();
                 break;
             case R.id.action_edit_set:
-                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).editCurrentSet();
+                ((SwitchSetFragment) fragment).editCurrentSet();
             default:
                 return super.onOptionsItemSelected(item);
         }
