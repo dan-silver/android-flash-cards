@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class MySQLiteHelper extends SQLiteOpenHelper {
+public class CardsSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_CARDS = "cards";
     public static final String COLUMN_ID = "_id";
@@ -25,7 +25,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + " text not null, " + COLUMN_BACK
             + " text not null);";
 
-    public MySQLiteHelper(Context context) {
+    public CardsSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -36,7 +36,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(MySQLiteHelper.class.getName(),
+        Log.w(CardsSQLiteHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARDS);

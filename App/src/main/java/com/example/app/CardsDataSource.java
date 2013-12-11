@@ -16,12 +16,12 @@ public class CardsDataSource {
 
     // Database fields
     private SQLiteDatabase database;
-    private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_FRONT, MySQLiteHelper.COLUMN_BACK };
+    private CardsSQLiteHelper dbHelper;
+    private String[] allColumns = { CardsSQLiteHelper.COLUMN_ID,
+            CardsSQLiteHelper.COLUMN_FRONT, CardsSQLiteHelper.COLUMN_BACK };
 
     public CardsDataSource(Context context) {
-        dbHelper = new MySQLiteHelper(context);
+        dbHelper = new CardsSQLiteHelper(context);
     }
 
     public void open() throws SQLException {
@@ -34,12 +34,12 @@ public class CardsDataSource {
 
     public Card createCard(String front, String back) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_FRONT, front);
-        values.put(MySQLiteHelper.COLUMN_BACK, back);
-        long insertId = database.insert(MySQLiteHelper.TABLE_CARDS, null,
+        values.put(CardsSQLiteHelper.COLUMN_FRONT, front);
+        values.put(CardsSQLiteHelper.COLUMN_BACK, back);
+        long insertId = database.insert(CardsSQLiteHelper.TABLE_CARDS, null,
                 values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_CARDS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+        Cursor cursor = database.query(CardsSQLiteHelper.TABLE_CARDS,
+                allColumns, CardsSQLiteHelper.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         Card newCard = cursorToCard(cursor);
@@ -50,23 +50,23 @@ public class CardsDataSource {
     public void deleteCard(Card card) {
         long id = card.getId();
         System.out.println("Comment deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_CARDS, MySQLiteHelper.COLUMN_ID
+        database.delete(CardsSQLiteHelper.TABLE_CARDS, CardsSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
 
     public void editCard(Card card) {
         long id = card.getId();
         ContentValues args = new ContentValues();
-        args.put(MySQLiteHelper.COLUMN_FRONT, card.getFront());
-        args.put(MySQLiteHelper.COLUMN_BACK, card.getBack());
-        database.update(MySQLiteHelper.TABLE_CARDS, args, MySQLiteHelper.COLUMN_ID
+        args.put(CardsSQLiteHelper.COLUMN_FRONT, card.getFront());
+        args.put(CardsSQLiteHelper.COLUMN_BACK, card.getBack());
+        database.update(CardsSQLiteHelper.TABLE_CARDS, args, CardsSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
 
     public List<Card> getAllComments() {
         List<Card> comments = new ArrayList<Card>();
 
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_CARDS,
+        Cursor cursor = database.query(CardsSQLiteHelper.TABLE_CARDS,
                 allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
