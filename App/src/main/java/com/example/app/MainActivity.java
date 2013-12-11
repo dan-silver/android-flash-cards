@@ -17,24 +17,20 @@
 package com.example.app;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -98,7 +94,7 @@ public class MainActivity extends Activity {
         }
         CardsDataSource dataSource = new CardsDataSource(this);
         dataSource.open();
-        cards.addAll(dataSource.getAllComments());
+        cards.addAll(dataSource.getAllCards());
         dataSource.close();
 
         cardSets.add(new Set("Spanish Chapter 1"));

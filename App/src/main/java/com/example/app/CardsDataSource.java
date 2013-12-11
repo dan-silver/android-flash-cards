@@ -50,7 +50,7 @@ public class CardsDataSource {
 
     public void deleteCard(Card card) {
         long id = card.getId();
-        System.out.println("Comment deleted with id: " + id);
+        System.out.println("Card deleted with id: " + id);
         database.delete(CardsSQLiteHelper.TABLE_CARDS, CardsSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
@@ -64,21 +64,21 @@ public class CardsDataSource {
                 + " = " + id, null);
     }
 
-    public List<Card> getAllComments() {
-        List<Card> comments = new ArrayList<Card>();
+    public List<Card> getAllCards() {
+        List<Card> cards = new ArrayList<Card>();
 
         Cursor cursor = database.query(CardsSQLiteHelper.TABLE_CARDS,
                 allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Card comment = cursorToCard(cursor);
-            comments.add(comment);
+            Card card = cursorToCard(cursor);
+            cards.add(card);
             cursor.moveToNext();
         }
         // make sure to close the cursor
         cursor.close();
-        return comments;
+        return cards;
     }
 
     private Card cursorToCard(Cursor cursor) {
