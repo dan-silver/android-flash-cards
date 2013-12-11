@@ -235,7 +235,7 @@ public class MainActivity extends Activity {
 
     private void selectItem(int position) {
         Fragment fragment;
-        if (drawerMenuItems[position].equals("Manage")) {
+        if (drawerMenuItems[position].equals("Manage Cards")) {
             fragment = new ManageCardsFragment(this);
         } else if (drawerMenuItems[position].equals("Learn")) {
             fragment = new LearnFragment(this);

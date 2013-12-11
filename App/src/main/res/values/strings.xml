@@ -15,9 +15,9 @@
   -->
 
 <resources>
-    <string name="app_name">Flash Cards Study Tool</string>
+    <string name="app_name">Flashcards Study Tool</string>
     <string-array name="drawer_menu_items">
-        <item>Manage</item>
+        <item>Manage Cards</item>
         <item>Learn</item>
         <item>Test</item>
         <item>Switch Set</item>
