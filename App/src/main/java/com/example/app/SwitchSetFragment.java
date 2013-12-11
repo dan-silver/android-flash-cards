@@ -1,30 +1,20 @@
 package com.example.app;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.ListFragment;
-import android.app.LoaderManager;
 import android.content.DialogInterface;
-import android.content.Loader;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
 /**
  * Created by dan on 12/7/13.
  */
 public class SwitchSetFragment extends ListFragment{
 
-    MainActivity parent;
+    static MainActivity parent;
     SetListAdapter adapter;
 
     public SwitchSetFragment() {
