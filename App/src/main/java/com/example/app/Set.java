@@ -6,7 +6,7 @@ package com.example.app;
 public class Set {
     int id;
     String name;
-
+    public Set() {}
     public Set(String name) {
         this.name = name;
     }
