@@ -7,3 +7,6 @@ Features to be developed
 * Generated quizes from sets
 * Sync flashcards from the website
 * Tablet version
+
+![Screenshot](http://i.imgur.com/u5Tvp1yl.jpg)
+![Screenshot](http://i.imgur.com/B6WYmbOl.jpg)
