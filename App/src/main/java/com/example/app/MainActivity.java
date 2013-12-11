@@ -191,6 +191,8 @@ public class MainActivity extends Activity {
             case R.id.action_remove_set:
                 ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).removeSet();
                 break;
+            case R.id.action_edit_set:
+                ((SwitchSetFragment) fragmentManager.findFragmentById(R.id.content_frame)).editCurrentSet();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -234,8 +236,11 @@ public class MainActivity extends Activity {
     public void setCurrentSet(int set) {
         currentSet = set;
     }
-    public int getCurrentSet() {
+    public int getCurrentSetIndex() {
         return currentSet;
+    }
+    public Set getCurrentSet() {
+        return this.cardSets.get(currentSet);
     }
 
     public ArrayList<Set> getCardSets() {
