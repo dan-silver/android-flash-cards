@@ -6,6 +6,12 @@ package com.example.app;
 public class Card {
     private String back;
     private String front;
+    private long id;
+    private long setID;
+
+    public long getSetID() {
+        return setID;
+    }
 
     public long getId() {
         return id;
@@ -14,8 +20,6 @@ public class Card {
     public void setId(long id) {
         this.id = id;
     }
-
-    private long id;
 
     public Card(String front, String back) {
         this.front = front;
@@ -40,4 +44,9 @@ public class Card {
     public void setFront(String front) {
         this.front = front;
     }
+
+    public void setSetID(long setID) {
+        this.setID = setID;
+    }
+
 }

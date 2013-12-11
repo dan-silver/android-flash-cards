@@ -14,16 +14,18 @@ public class CardsSQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_FRONT = "front";
     public static final String COLUMN_BACK = "back";
+    public static final String COLUMN_SET_ID = "setID";
 
     private static final String DATABASE_NAME = "cards.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
             + TABLE_CARDS + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_FRONT
             + " text not null, " + COLUMN_BACK
-            + " text not null);";
+            + " text not null, " + COLUMN_SET_ID
+            + " integer not null);";
 
     public CardsSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

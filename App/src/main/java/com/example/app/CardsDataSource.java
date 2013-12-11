@@ -18,7 +18,7 @@ public class CardsDataSource {
     private SQLiteDatabase database;
     private CardsSQLiteHelper dbHelper;
     private String[] allColumns = { CardsSQLiteHelper.COLUMN_ID,
-            CardsSQLiteHelper.COLUMN_FRONT, CardsSQLiteHelper.COLUMN_BACK };
+            CardsSQLiteHelper.COLUMN_FRONT, CardsSQLiteHelper.COLUMN_BACK, CardsSQLiteHelper.COLUMN_SET_ID };
 
     public CardsDataSource(Context context) {
         dbHelper = new CardsSQLiteHelper(context);
@@ -32,10 +32,11 @@ public class CardsDataSource {
         dbHelper.close();
     }
 
-    public Card createCard(String front, String back) {
+    public Card createCard(String front, String back, int setID) {
         ContentValues values = new ContentValues();
         values.put(CardsSQLiteHelper.COLUMN_FRONT, front);
         values.put(CardsSQLiteHelper.COLUMN_BACK, back);
+        values.put(CardsSQLiteHelper.COLUMN_SET_ID, setID);
         long insertId = database.insert(CardsSQLiteHelper.TABLE_CARDS, null,
                 values);
         Cursor cursor = database.query(CardsSQLiteHelper.TABLE_CARDS,
@@ -81,10 +82,11 @@ public class CardsDataSource {
     }
 
     private Card cursorToCard(Cursor cursor) {
-        Card comment = new Card();
-        comment.setId(cursor.getLong(0));
-        comment.setFront(cursor.getString(1));
-        comment.setBack(cursor.getString(2));
-        return comment;
+        Card card = new Card();
+        card.setId(cursor.getLong(0));
+        card.setFront(cursor.getString(1));
+        card.setBack(cursor.getString(2));
+        card.setSetID(cursor.getLong(3));
+        return card;
     }
 }

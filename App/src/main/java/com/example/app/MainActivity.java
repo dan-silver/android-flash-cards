@@ -181,7 +181,7 @@ public class MainActivity extends Activity {
         cards.add(card);
         CardsDataSource dataSource = new CardsDataSource(this);
         dataSource.open();
-        dataSource.createCard(card.getFront(), card.getBack());
+        dataSource.createCard(card.getFront(), card.getBack(), currentSet);
         dataSource.close();
     }
 
