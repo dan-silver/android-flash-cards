@@ -38,7 +38,7 @@ public class ManageCardsFragment extends Fragment {
 
         assert rootView != null;
         list = (ListView) rootView.findViewById(R.id.gridview);
-        adapter = new ImageAdapter(rootView.getContext(), parent.cards);
+        adapter = new ImageAdapter(rootView.getContext(), parent.getCards());
         list.setAdapter(adapter);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,8 +72,8 @@ public class ManageCardsFragment extends Fragment {
         final View textEntryView = factory.inflate(R.layout.card_input, null);
         final EditText front = (EditText) textEntryView.findViewById(R.id.front);
         final EditText back = (EditText) textEntryView.findViewById(R.id.back);
-        front.setText(parent.cards.get(selectedItem).getFront());
-        back.setText(parent.cards.get(selectedItem).getBack());
+        front.setText(parent.getCards().get(selectedItem).getFront());
+        back.setText(parent.getCards().get(selectedItem).getBack());
         new AlertDialog.Builder(parent)
                 .setTitle("Edit Study Card")
                 .setView(textEntryView)

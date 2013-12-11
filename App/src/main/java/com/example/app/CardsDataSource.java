@@ -64,11 +64,11 @@ public class CardsDataSource {
                 + " = " + id, null);
     }
 
-    public List<Card> getAllCards() {
+    public List<Card> getAllCardsInSet(int setID) {
         List<Card> cards = new ArrayList<Card>();
 
         Cursor cursor = database.query(CardsSQLiteHelper.TABLE_CARDS,
-                allColumns, null, null, null, null, null);
+                allColumns, CardsSQLiteHelper.COLUMN_SET_ID + " = " + setID, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

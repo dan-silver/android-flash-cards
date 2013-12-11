@@ -45,7 +45,6 @@ public class MainActivity extends Activity {
     private String[] drawerMenuItems;
     private int currentSet;
 
-    ArrayList<Card> cards = new ArrayList<Card>();
     ArrayList<Set> cardSets = new ArrayList<Set>();
 
     @Override
@@ -92,10 +91,6 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        CardsDataSource dataSource = new CardsDataSource(this);
-        dataSource.open();
-        cards.addAll(dataSource.getAllCards());
-        dataSource.close();
 
         cardSets.add(new Set("Spanish Chapter 1"));
         cardSets.add(new Set("Spanish Chapter 2"));
@@ -174,7 +169,7 @@ public class MainActivity extends Activity {
     }
 
     public void addCard(Card card) {
-        cards.add(card);
+        //cards.add(card);
         CardsDataSource dataSource = new CardsDataSource(this);
         dataSource.open();
         dataSource.createCard(card.getFront(), card.getBack(), currentSet);
@@ -182,6 +177,7 @@ public class MainActivity extends Activity {
     }
 
     public void removeCard(int cardPosition) {
+        ArrayList<Card> cards = new ArrayList<Card>();
         Card card = cards.get(cardPosition);
         CardsDataSource dataSource = new CardsDataSource(this);
         dataSource.open();
@@ -197,7 +193,7 @@ public class MainActivity extends Activity {
     }
 
     public void updateCard(int selectedItem, String cardFront, String cardBack) {
-        Card card = cards.get(selectedItem);
+        Card card = getCards().get(selectedItem);
         card.setFront(cardFront);
         card.setBack(cardBack);
 
@@ -219,6 +215,15 @@ public class MainActivity extends Activity {
 
     public ArrayList<Set> getCardSets() {
         return cardSets;
+    }
+
+    public ArrayList<Card> getCards() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+        CardsDataSource dataSource = new CardsDataSource(this);
+        dataSource.open();
+        cards.addAll(dataSource.getAllCardsInSet(currentSet));
+        dataSource.close();
+        return cards;
     }
 
     /* The click listner for ListView in the navigation drawer */

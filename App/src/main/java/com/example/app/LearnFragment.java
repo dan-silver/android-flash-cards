@@ -22,7 +22,7 @@ public class LearnFragment extends Fragment {
         //required constructor
     }
     public LearnFragment(MainActivity parent) {
-        cards = parent.cards;
+        cards = parent.getCards();
         this.parent = parent;
     }
 
